@@ -182,25 +182,28 @@
             
             <!-- Demo Credentials -->
             <div class="demo-credentials">
-                <h6><i data-feather="key" style="width: 12px; height: 12px;"></i> Demo Credentials</h6>
-                <div class="demo-credential">
-                    <span class="role">SuperAdmin:</span>
+                <h6><i data-feather="key" style="width: 12px; height: 12px;"></i> 🔑 Click to Login</h6>
+                <div class="demo-credential" onclick="fillCredentials('superadmin@school.edu')" style="cursor: pointer; padding: 4px; border-radius: 4px;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
+                    <span class="role">🔹 SuperAdmin:</span>
                     <span class="email">superadmin@school.edu</span>
                 </div>
-                <div class="demo-credential">
-                    <span class="role">Admin:</span>
+                <div class="demo-credential" onclick="fillCredentials('admin@school.edu')" style="cursor: pointer; padding: 4px; border-radius: 4px;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
+                    <span class="role">🔸 Admin:</span>
                     <span class="email">admin@school.edu</span>
                 </div>
-                <div class="demo-credential">
-                    <span class="role">Teacher:</span>
+                <div class="demo-credential" onclick="fillCredentials('teacher@school.edu')" style="cursor: pointer; padding: 4px; border-radius: 4px;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
+                    <span class="role">🔸 Teacher:</span>
                     <span class="email">teacher@school.edu</span>
                 </div>
-                <div class="demo-credential">
-                    <span class="role">Student:</span>
+                <div class="demo-credential" onclick="fillCredentials('student@school.edu')" style="cursor: pointer; padding: 4px; border-radius: 4px;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
+                    <span class="role">🔸 Student:</span>
                     <span class="email">student@school.edu</span>
                 </div>
                 <div class="text-center mt-2">
-                    <small class="f-11 font-secondary">Password: <code>password</code> for all accounts</small>
+                    <small class="f-11 font-secondary">
+                        <strong>Password:</strong> <code style="background: #e5e7eb; padding: 2px 6px; border-radius: 3px; font-weight: bold;">password</code> for all accounts
+                        <br><span style="color: #059669;">👆 Click any email above to auto-fill login form</span>
+                    </small>
                 </div>
             </div>
             
@@ -278,16 +281,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Feather Icons
             feather.replace();
-            
-            // Auto-fill demo credentials on click
-            document.querySelectorAll('.demo-credential .email').forEach(function(element) {
-                element.style.cursor = 'pointer';
-                element.addEventListener('click', function() {
-                    document.getElementById('email').value = this.textContent;
-                    document.getElementById('password').value = 'password';
-                });
-            });
         });
+
+        // Auto-fill demo credentials function
+        function fillCredentials(email) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = 'password';
+            
+            // Add visual feedback
+            const emailField = document.getElementById('email');
+            const passwordField = document.getElementById('password');
+            
+            emailField.style.backgroundColor = '#dcfce7';
+            passwordField.style.backgroundColor = '#dcfce7';
+            
+            setTimeout(() => {
+                emailField.style.backgroundColor = '';
+                passwordField.style.backgroundColor = '';
+            }, 1000);
+        }
     </script>
 </body>
 </html>
