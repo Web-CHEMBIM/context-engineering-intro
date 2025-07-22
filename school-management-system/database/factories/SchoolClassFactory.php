@@ -23,13 +23,11 @@ class SchoolClassFactory extends Factory
         
         return [
             'name' => "Grade {$gradeLevel} - Section {$section}",
-            'grade_level' => $gradeLevel,
+            'grade_level' => (string)$gradeLevel,
             'section' => $section,
             'academic_year_id' => AcademicYear::factory(),
-            'class_teacher_id' => null, // Will be assigned separately
             'capacity' => $this->getCapacityForGrade($gradeLevel),
-            'room_number' => fake()->optional(0.8)->regexify('[A-Z][0-9]{2,3}'),
-            'schedule' => json_encode($this->generateSchedule()),
+            'description' => fake()->optional(0.3)->sentence(),
             'is_active' => fake()->boolean(95),
         ];
     }
@@ -93,7 +91,7 @@ class SchoolClassFactory extends Factory
         $gradeLevel = fake()->numberBetween(1, 5);
         
         return $this->state([
-            'grade_level' => $gradeLevel,
+            'grade_level' => (string)$gradeLevel,
             'name' => "Grade {$gradeLevel} - Section " . fake()->randomElement(['A', 'B', 'C']),
             'capacity' => fake()->numberBetween(15, 25),
         ]);
@@ -107,7 +105,7 @@ class SchoolClassFactory extends Factory
         $gradeLevel = fake()->numberBetween(6, 8);
         
         return $this->state([
-            'grade_level' => $gradeLevel,
+            'grade_level' => (string)$gradeLevel,
             'name' => "Grade {$gradeLevel} - Section " . fake()->randomElement(['A', 'B', 'C', 'D']),
             'capacity' => fake()->numberBetween(20, 28),
         ]);
@@ -121,7 +119,7 @@ class SchoolClassFactory extends Factory
         $gradeLevel = fake()->numberBetween(9, 12);
         
         return $this->state([
-            'grade_level' => $gradeLevel,
+            'grade_level' => (string)$gradeLevel,
             'name' => "Grade {$gradeLevel} - Section " . fake()->randomElement(['A', 'B', 'C', 'D', 'E']),
             'capacity' => fake()->numberBetween(25, 35),
         ]);
@@ -129,11 +127,12 @@ class SchoolClassFactory extends Factory
 
     /**
      * Create a class with a specific teacher.
+     * Note: Teacher assignment handled separately via pivot table
      */
     public function withTeacher(?Teacher $teacher = null): static
     {
         return $this->state([
-            'class_teacher_id' => $teacher?->id ?? Teacher::factory(),
+            // Teacher assignment will be handled via the teacher_class pivot table
         ]);
     }
 

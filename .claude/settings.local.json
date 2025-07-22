@@ -24,7 +24,8 @@
       "Bash(php artisan:*)",
       "Bash(composer install:*)",
       "Bash(copy .env.example .env)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(composer:*)"
     ],
     "deny": []
   }

@@ -35,11 +35,10 @@ class SchoolClassSeeder extends Seeder
             foreach (['A', 'B'] as $section) {
                 $class = SchoolClass::factory()->elementary()->create([
                     'name' => "Grade {$grade} - Section {$section}",
-                    'grade_level' => $grade,
+                    'grade_level' => (string)$grade,
                     'section' => $section,
                     'academic_year_id' => $currentYear->id,
                     'capacity' => $this->getCapacityForGrade($grade),
-                    'room_number' => "E{$grade}{$section}",
                 ]);
                 $created++;
 
@@ -47,11 +46,10 @@ class SchoolClassSeeder extends Seeder
                 if ($pastYear) {
                     SchoolClass::factory()->elementary()->create([
                         'name' => "Grade {$grade} - Section {$section}",
-                        'grade_level' => $grade,
+                        'grade_level' => (string)$grade,
                         'section' => $section,
                         'academic_year_id' => $pastYear->id,
                         'capacity' => $this->getCapacityForGrade($grade),
-                        'room_number' => "E{$grade}{$section}",
                         'is_active' => false, // Past year classes are inactive
                     ]);
                     $created++;

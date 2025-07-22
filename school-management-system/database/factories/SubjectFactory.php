@@ -54,10 +54,7 @@ class SubjectFactory extends Factory
             'description' => fake()->optional(0.8)->paragraph(2),
             'credit_hours' => $this->getCreditHours($subject),
             'department' => $subject['department'],
-            'grade_levels' => json_encode($subject['grades']),
-            'is_mandatory' => $subject['mandatory'],
-            'prerequisites' => fake()->optional(0.3)->sentence(),
-            'syllabus_file' => null,
+            'is_core_subject' => $subject['mandatory'],
             'is_active' => fake()->boolean(95),
         ];
     }
@@ -87,8 +84,7 @@ class SubjectFactory extends Factory
         return $this->state([
             'name' => $subject['name'],
             'department' => $subject['department'],
-            'grade_levels' => json_encode($subject['grades']),
-            'is_mandatory' => true,
+            'is_core_subject' => true,
             'credit_hours' => fake()->numberBetween(4, 6),
         ]);
     }
@@ -104,8 +100,7 @@ class SubjectFactory extends Factory
         return $this->state([
             'name' => $subject['name'],
             'department' => $subject['department'],
-            'grade_levels' => json_encode($subject['grades']),
-            'is_mandatory' => false,
+            'is_core_subject' => false,
             'credit_hours' => fake()->numberBetween(2, 4),
         ]);
     }
@@ -119,7 +114,8 @@ class SubjectFactory extends Factory
         $subject = fake()->randomElement($hsSubjects);
         
         return $this->state([
-            'grade_levels' => json_encode(array_filter($subject['grades'], fn($g) => $g >= 9)),
+            'name' => $subject['name'],
+            'department' => $subject['department'],
         ]);
     }
 
@@ -132,7 +128,8 @@ class SubjectFactory extends Factory
         $subject = fake()->randomElement($elemSubjects);
         
         return $this->state([
-            'grade_levels' => json_encode(array_filter($subject['grades'], fn($g) => $g <= 5)),
+            'name' => $subject['name'],
+            'department' => $subject['department'],
         ]);
     }
 }

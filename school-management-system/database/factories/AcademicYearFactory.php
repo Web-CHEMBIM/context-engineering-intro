@@ -26,14 +26,6 @@ class AcademicYearFactory extends Factory
             'start_date' => $startDate,
             'end_date' => $endDate,
             'is_current' => false, // Will be set explicitly for current year
-            'semester_count' => fake()->numberBetween(2, 4),
-            'total_weeks' => fake()->numberBetween(38, 42),
-            'holidays' => json_encode([
-                'thanksgiving_break' => ['2024-11-25', '2024-11-29'],
-                'winter_break' => ['2024-12-20', '2025-01-08'],
-                'spring_break' => ['2025-03-10', '2025-03-17'],
-                'summer_break' => ['2025-06-15', '2025-08-15'],
-            ]),
             'description' => fake()->optional(0.7)->sentence(10),
             'is_active' => true,
         ];

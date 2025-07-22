@@ -90,11 +90,9 @@ class SubjectSeeder extends Seeder
                 [
                     'name' => $subjectData['name'],
                     'department' => $subjectData['department'],
-                    'grade_levels' => json_encode($subjectData['grades']),
-                    'is_mandatory' => $subjectData['mandatory'],
+                    'is_core_subject' => $subjectData['mandatory'],
                     'credit_hours' => $subjectData['credit_hours'],
                     'description' => $this->generateDescription($subjectData),
-                    'prerequisites' => $this->generatePrerequisites($subjectData),
                     'is_active' => true,
                 ]
             );
