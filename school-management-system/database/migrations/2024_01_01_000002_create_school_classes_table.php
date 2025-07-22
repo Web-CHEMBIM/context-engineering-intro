@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('capacity')->default(30);
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('room_number', 20)->nullable();
             $table->foreignId('academic_year_id')->constrained('academic_years')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();

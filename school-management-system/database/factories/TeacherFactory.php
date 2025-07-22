@@ -190,7 +190,14 @@ class TeacherFactory extends Factory
         return $this->state([
             'contract_type' => 'part_time',
             'salary' => function (array $attributes) {
-                return $attributes['salary'] * 0.6; // 60% of full-time salary
+                $salary = $attributes['salary'] ?? null;
+                if ($salary instanceof \Closure) {
+                    $salary = $salary($attributes);
+                }
+                if (!is_numeric($salary)) {
+                    $salary = 40000; // fallback default
+                }
+                return $salary * 0.6; // 60% of full-time salary
             },
         ]);
     }

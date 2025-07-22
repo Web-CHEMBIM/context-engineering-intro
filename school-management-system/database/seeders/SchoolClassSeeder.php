@@ -161,28 +161,41 @@ class SchoolClassSeeder extends Seeder
         ];
 
         foreach ($specialClasses as $classData) {
-            // Current year
-            SchoolClass::factory()->create([
-                'name' => $classData['name'],
-                'grade_level' => $classData['grade_level'],
-                'section' => $classData['section'],
-                'academic_year_id' => $currentYear->id,
-                'capacity' => $classData['section'] === 'SE' ? 12 : 20, // Smaller capacity for special needs
-                'room_number' => $classData['room'],
-                'is_active' => true,
-            ]);
-
-            // Past year
-            if ($pastYear) {
+            // Check for duplicate before creating
+            $exists = \App\Models\SchoolClass::where('grade_level', $classData['grade_level'])
+                ->where('section', $classData['section'])
+                ->where('academic_year_id', $currentYear->id)
+                ->exists();
+            if (!$exists) {
+                // Current year
                 SchoolClass::factory()->create([
                     'name' => $classData['name'],
                     'grade_level' => $classData['grade_level'],
                     'section' => $classData['section'],
-                    'academic_year_id' => $pastYear->id,
-                    'capacity' => $classData['section'] === 'SE' ? 12 : 20,
+                    'academic_year_id' => $currentYear->id,
+                    'capacity' => $classData['section'] === 'SE' ? 12 : 20, // Smaller capacity for special needs
                     'room_number' => $classData['room'],
-                    'is_active' => false,
+                    'is_active' => true,
                 ]);
+            }
+
+            // Past year
+            if ($pastYear) {
+                $existsPast = \App\Models\SchoolClass::where('grade_level', $classData['grade_level'])
+                    ->where('section', $classData['section'])
+                    ->where('academic_year_id', $pastYear->id)
+                    ->exists();
+                if (!$existsPast) {
+                    SchoolClass::factory()->create([
+                        'name' => $classData['name'],
+                        'grade_level' => $classData['grade_level'],
+                        'section' => $classData['section'],
+                        'academic_year_id' => $pastYear->id,
+                        'capacity' => $classData['section'] === 'SE' ? 12 : 20,
+                        'room_number' => $classData['room'],
+                        'is_active' => false,
+                    ]);
+                }
             }
         }
 

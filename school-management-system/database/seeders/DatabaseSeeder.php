@@ -7,6 +7,10 @@ use App\Models\AcademicYear;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Models\Subject;
+use App\Models\SchoolClass;
+use App\Models\Student;
+use App\Models\Teacher;
 
 /**
  * Database Seeder for School Management System

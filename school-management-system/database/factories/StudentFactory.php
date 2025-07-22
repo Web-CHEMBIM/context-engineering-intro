@@ -283,8 +283,14 @@ class StudentFactory extends Factory
         return $this->state([
             'student_status' => 'enrolled',
             'total_fees' => function (array $attributes) {
-                // International students typically pay higher fees
-                return $attributes['total_fees'] * fake()->numberBetween(120, 180) / 100;
+                $totalFees = $attributes['total_fees'] ?? null;
+                if ($totalFees instanceof \Closure) {
+                    $totalFees = $totalFees($attributes);
+                }
+                if (!is_numeric($totalFees)) {
+                    $totalFees = 5000; // fallback default
+                }
+                return $totalFees * fake()->numberBetween(120, 180) / 100;
             },
             'user_id' => User::factory()->student()->state([
                 'address' => fake()->address() . ', ' . fake()->country(),

@@ -21,9 +21,9 @@ class StudentSeeder extends Seeder
      * Target enrollment per grade level.
      */
     private array $enrollmentTargets = [
-        1 => 45,  2 => 48,  3 => 50,  4 => 52,  5 => 50,  // Elementary
-        6 => 65,  7 => 68,  8 => 70,                       // Middle School
-        9 => 95,  10 => 100, 11 => 95, 12 => 85,          // High School
+        1 => 5,  2 => 5,  3 => 5,  4 => 5,  5 => 5,  // Elementary
+        6 => 5,  7 => 5,  8 => 5,                    // Middle School
+        9 => 5,  10 => 5, 11 => 5, 12 => 5,          // High School
     ];
 
     /**
@@ -83,7 +83,7 @@ class StudentSeeder extends Seeder
         }
 
         // Create some special student types
-        $this->createSpecialStudents($currentYear);
+        // $this->createSpecialStudents($currentYear);
 
         // Enroll students in subjects
         $this->enrollStudentsInSubjects();

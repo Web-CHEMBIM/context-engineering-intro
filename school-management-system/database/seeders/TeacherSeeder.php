@@ -20,15 +20,15 @@ class TeacherSeeder extends Seeder
      * Department distribution for realistic staffing.
      */
     private array $departmentDistribution = [
-        'Mathematics' => 8,
-        'Language Arts' => 8,
-        'Science' => 10,
-        'Social Studies' => 6,
-        'Physical Education' => 4,
-        'Arts' => 6,
-        'Technology' => 4,
-        'World Languages' => 4,
-        'Special Education' => 5,
+        'Mathematics' => 1,
+        'Language Arts' => 1,
+        'Science' => 1,
+        'Social Studies' => 1,
+        'Physical Education' => 1,
+        'Arts' => 1,
+        'Technology' => 1,
+        'World Languages' => 1,
+        'Special Education' => 1,
     ];
 
     /**

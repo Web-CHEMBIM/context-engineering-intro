@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('department')->nullable(); // e.g., "Science", "Arts"
             $table->boolean('is_core_subject')->default(false); // Core vs Elective
             $table->boolean('is_active')->default(true);
+            $table->json('grade_levels')->nullable();
             $table->timestamps();
             $table->softDeletes();
             

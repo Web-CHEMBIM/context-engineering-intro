@@ -18,9 +18,13 @@ return new class extends Migration
             $table->string('employee_id')->unique();
             $table->date('hire_date');
             $table->string('department')->nullable(); // e.g., "Science", "Mathematics"
+            $table->string('specialization')->nullable();
+            $table->boolean('is_head_of_department')->default(false);
+            $table->json('office_hours')->nullable();
             $table->enum('employment_type', ['full-time', 'part-time', 'contract'])->default('full-time');
             $table->enum('teacher_status', ['active', 'inactive', 'on-leave', 'terminated'])->default('active');
             $table->decimal('salary', 10, 2)->nullable();
+            $table->string('contract_type')->nullable();
             $table->string('qualification')->nullable(); // e.g., "Masters in Mathematics"
             $table->integer('experience_years')->default(0);
             $table->text('specializations')->nullable(); // JSON or comma-separated
