@@ -20,37 +20,55 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed Roles and Permissions first
+        $this->command->info('🌱 Starting School Management System Database Seeding...');
+        $this->command->info('');
+
+        // Seed foundational data first
         $this->call([
             RolePermissionSeeder::class,
+            AcademicYearSeeder::class,
+            SubjectSeeder::class,
         ]);
 
-        // Create Academic Year
-        $this->createAcademicYear();
+        // Create school structure
+        $this->call([
+            SchoolClassSeeder::class,
+        ]);
 
-        // Create Default Users
+        // Create users and profiles
+        $this->call([
+            TeacherSeeder::class,
+            StudentSeeder::class,
+        ]);
+
+        // Create legacy default users (keeping for backwards compatibility)
         $this->createDefaultUsers();
 
-        $this->command->info('Database seeded successfully!');
+        $this->command->info('');
+        $this->command->info('🎉 Database seeded successfully!');
+        $this->command->info('');
+        $this->displaySeededData();
     }
 
     /**
-     * Create the current academic year.
+     * Display summary of seeded data.
      */
-    private function createAcademicYear(): void
+    private function displaySeededData(): void
     {
-        AcademicYear::firstOrCreate(
-            ['name' => '2024-2025'],
-            [
-                'start_date' => '2024-09-01',
-                'end_date' => '2025-06-30',
-                'is_current' => true,
-                'is_active' => true,
-                'description' => 'Academic Year 2024-2025'
-            ]
-        );
+        $academicYears = AcademicYear::count();
+        $subjects = Subject::count();
+        $classes = SchoolClass::where('is_active', true)->count();
+        $teachers = Teacher::count();
+        $students = Student::where('student_status', 'enrolled')->count();
+        $users = User::count();
 
-        $this->command->info('Academic year created successfully.');
+        $this->command->info('📊 Seeded Data Summary:');
+        $this->command->info("   • Academic Years: {$academicYears}");
+        $this->command->info("   • Subjects: {$subjects}");
+        $this->command->info("   • Active Classes: {$classes}");
+        $this->command->info("   • Teachers: {$teachers}");
+        $this->command->info("   • Enrolled Students: {$students}");
+        $this->command->info("   • Total Users: {$users}");
     }
 
     /**
